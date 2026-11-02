@@ -1,4 +1,4 @@
-import { validSettings, dayState } from './salary.js';
+import { validSettings, dayState } from './salary.js?v=20261102-2';
 const $ = id => document.getElementById(id);
 const defaults = { salary: 15000, days: 5, start: '09:00', end: '18:00', effects: true };
 let settings = { ...defaults };
@@ -65,16 +65,10 @@ setInterval(() => {
   coin.style.setProperty('--x', `${Math.random() * 120 - 60}px`); $('particles').append(coin); setTimeout(() => coin.remove(), 1900);
 }, 1000);
 
-function setSettingsExpanded(expanded) {
-  $('settings-form').hidden = !expanded;
-  $('settings-toggle').setAttribute('aria-expanded', String(expanded));
-  $('settings-toggle-label').textContent = expanded ? '收起设置 ⌃' : '展开设置 ⌄';
-}
-try { setSettingsExpanded(localStorage.getItem('salary-clock-settings-expanded') !== 'false'); }
-catch { setSettingsExpanded(true); }
-$('settings-toggle').addEventListener('click', () => {
-  const expanded = $('settings-form').hidden;
-  setSettingsExpanded(expanded);
-  try { localStorage.setItem('salary-clock-settings-expanded', String(expanded)); }
-  catch { /* Collapsing still works without storage. */ }
+const settingsPanel = $('settings-panel');
+try { settingsPanel.open = localStorage.getItem('salary-clock-settings-expanded') !== 'false'; }
+catch { /* Native disclosure still works without browser storage. */ }
+settingsPanel.addEventListener('toggle', () => {
+  try { localStorage.setItem('salary-clock-settings-expanded', String(settingsPanel.open)); }
+  catch { /* The native open state remains usable. */ }
 });
