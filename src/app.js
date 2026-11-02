@@ -64,3 +64,17 @@ setInterval(() => {
   const coin = document.createElement('span'); coin.className = 'coin'; coin.textContent = `¥${dayState(settings).perSecond.toFixed(4)}`;
   coin.style.setProperty('--x', `${Math.random() * 120 - 60}px`); $('particles').append(coin); setTimeout(() => coin.remove(), 1900);
 }, 1000);
+
+function setSettingsExpanded(expanded) {
+  $('settings-form').hidden = !expanded;
+  $('settings-toggle').setAttribute('aria-expanded', String(expanded));
+  $('settings-toggle-label').textContent = expanded ? '收起设置 ⌃' : '展开设置 ⌄';
+}
+try { setSettingsExpanded(localStorage.getItem('salary-clock-settings-expanded') !== 'false'); }
+catch { setSettingsExpanded(true); }
+$('settings-toggle').addEventListener('click', () => {
+  const expanded = $('settings-form').hidden;
+  setSettingsExpanded(expanded);
+  try { localStorage.setItem('salary-clock-settings-expanded', String(expanded)); }
+  catch { /* Collapsing still works without storage. */ }
+});

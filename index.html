@@ -18,13 +18,13 @@
       <div class="progress-track" role="progressbar" aria-label="今日工作进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progress-fill"></div></div>
       <div class="shift-times"><span id="start-label">09:00 上班</span><span id="end-label">18:00 下班</span></div>
     </section>
-    <form id="settings-form" aria-label="薪资设置"><div class="settings-title">我的工作<span>修改后自动生效</span></div>
+    <section class="settings-panel"><button type="button" id="settings-toggle" class="settings-title" aria-expanded="true" aria-controls="settings-form"><span>我的工作</span><span id="settings-toggle-label">收起设置 ⌃</span></button><form id="settings-form" aria-label="薪资设置">
       <div class="field"><label for="salary">月薪 <span>元</span></label><input id="salary" type="number" min="1" max="100000000" step="0.01" required value="15000" inputmode="decimal"></div>
       <div class="field"><label for="days">每周工作</label><select id="days"><option value="1">1 天</option><option value="2">2 天</option><option value="3">3 天</option><option value="4">4 天</option><option value="5" selected>5 天 · 双休</option><option value="6">6 天 · 单休</option><option value="7">7 天 · 全勤</option></select></div>
       <div class="field"><label for="start">上班时间</label><input id="start" type="time" required value="09:00"></div>
       <div class="field"><label for="end">下班时间</label><input id="end" type="time" required value="18:00"></div>
       <p id="form-error" class="form-error" role="alert"></p>
-    </form>
+    </form></section>
     <footer><span id="save-message" role="status">修改自动保存 · 与本地时钟同步</span><div><button id="effects" type="button" aria-pressed="true">特效 开</button><details><summary>计算说明</summary><p>月薪 ÷（每周工作天数 × 52 ÷ 12）÷ 每日工作秒数＝秒薪。工作日从周一连续排列，五天为周一至周五。按设备当前时间计算当天收入，上班前为零，下班后停在日薪，休息日为零。不计夜班，不扣午休、节假日、税费。设置仅保存在当前浏览器。</p></details></div></footer>
   </main>
   <script type="module" src="src/app.js"></script>
